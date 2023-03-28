@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registrar{% endblock %}
+
+{% block body %}
+<body style="background-color: #f0f0f0;">
+    <h1 class="mb-3">Registrar</h1>
+
+    {{ form_start(registrationForm) }}
+
+    <div class="mb-3 col-sm-6">
+    {{ form_row(registrationForm.nombre, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3 col-sm-6">
+    {{ form_row(registrationForm.apellido, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3 col-sm-6">
+    {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3 col-sm-6">
+    {{ form_row(registrationForm.plainPassword, {
+        'label': 'Contraseña',
+        'attr': {'class': 'form-control'}
+    }) }}
+    </div>
+
+    <div class="mb-3 col-sm-6">
+    {{ form_row(registrationForm.agreeTerms, {
+        'label': 'Acepto los términos',
+        'attr': {'class': 'form-check-input p-2' 
+    }}) }}
+    </div>
+
+    <div class="mb-3 col-sm-6">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">{{ button_label|default('Registrar') }}</button>
+        </div>
+    </div>
+    {{ form_end(registrationForm) }}
+
+    {% if is_granted('ROLE_MASTER_DEV') %} 
+
+    <a href="{{ path('app_user_index') }}">Volver a la lista</a>
+
+    {% else %}
+
+    <div class="mb-3 col-sm-6">
+        <a class="btn btn-secondary" href="{{ path('app_login') }}" role="button">Ir al Login</a>
+    </div>
+
+    {% endif %}
+
+
+</body>
+{% endblock %}

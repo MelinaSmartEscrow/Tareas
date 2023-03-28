@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista de Usuarios{% endblock %}
+
+{% block body %}
+    <h1 style="color:#483D8B">Lista de Usuarios</h1>
+
+    <table class="table table-secondary table-striped-columns">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.nombre }}</td>
+                <td>{{ user.apellido }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="{{ path('app_user_show', {'id': user.id}) }}" role="button">Mostrar</a>
+                    <a class="btn btn-secondary btn-sm" href="{{ path('app_user_edit', {'id': user.id}) }}" role="button">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_register') }}" role="button">Nuevo Usuario</a>
+    <hr>
+    <a class="btn btn-success" href="{{ path('app_tarea_index') }}" role="button">Administar Tareas</a>
+{% endblock %}

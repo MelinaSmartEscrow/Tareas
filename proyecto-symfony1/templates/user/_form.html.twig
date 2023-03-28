@@ -1,0 +1,28 @@
+<div class="mb-3 row">
+    {{ form_start(form) }}
+
+        <div class="mb-2 col-sm-6">
+            <div class="p-2">
+                <h5 class="modal-title">Email</h5>
+                {{ form_widget(form.email, { 'attr': {'class': 'form-control '} }) }}
+            </div>
+        </div>
+
+        <div class="mb-2 col-sm-6">
+            <div class="p-2">
+                <h5 class="modal-title">Nombre</h5>
+                {{ form_widget(form.nombre, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        <div class="mb-2 col-sm-6">
+            <div class="p-2">
+                <h5 class="modal-title">Apellido</h5>
+                {{ form_widget(form.apellido, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>
+
+        <button class="btn">{{ button_label|default('Guardar') }}</button>
+    {{ form_end(form) }}
+
+</div>

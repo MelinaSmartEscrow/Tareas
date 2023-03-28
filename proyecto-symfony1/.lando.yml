@@ -1,0 +1,4 @@
+name: proyecto-symfony
+recipe: lamp
+config:
+  webroot: /public

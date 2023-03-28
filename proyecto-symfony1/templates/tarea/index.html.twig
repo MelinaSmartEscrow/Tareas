@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tareas{% endblock %}
+
+{% block body %}
+
+{#Configurar los títulos de bienvenida#}
+{% if app.user %} 
+<h4 class="modal-title" style="color:#008B8B">Bienvenido {{app.user.nombre}} {{app.user.apellido}}</h4>
+
+{% else %}
+<h4 class="modal-title" >Bienvenido a la aplicación de Tareas</h4>
+{% endif %}
+{#--------#}
+
+<h1 style="color:#696969">Tareas</h1>
+
+
+<div class="table-responsive" >
+    <table 
+    
+    {% if is_granted('ROLE_MASTER_DEV') %} 
+        class="table align-middle table-primary table-striped-columns" 
+    {% else %}
+        class="table align-middle"
+    {% endif %}>
+
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Contenido</th>
+                <th>Prioridad</th>
+                <th>Horas</th>
+                <th>Creado en</th>
+                <th>Actualizado en</th>
+                <th>Id</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tarea in tareas %}
+            <tr>
+                <td>{{ tarea.titulo }}</td>
+                <td>{{ tarea.contenido }}</td>
+                <td>{{ tarea.prioridad }}</td>
+                <td>{{ tarea.horas }}</td>
+                <td>{{ tarea.createdAt ? tarea.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tarea.updatedAt ? tarea.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tarea.id }}</td>
+                <td>
+                    <a class="btn btn-outline-primary btn-sm" href="{{ path('app_tarea_show', {'id': tarea.id}) }}" role="button">Mostrar</a>
+                    <a class="btn btn-outline-success btn-sm" href="{{ path('app_tarea_edit', {'id': tarea.id}) }}" role="button">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no hay registros</td>
+            </tr>
+        {% endfor %}
+        
+       
+        </tbody>
+    </table>
+    </div>
+
+    <div class="p-2 g-col-6">
+        <a class=" btn btn-primary " href="{{ path('app_tarea_new') }}" role="button">Crear nueva Tarea</a>
+    </div>
+
+    <hr>
+
+    {% if is_granted('ROLE_MASTER_DEV') %} 
+
+    <div class="p-2 g-col-6">
+        <a class="btn btn-success" href="{{ path('app_user_index') }}" role="button">Administrar Usuarios</a>
+    </div>
+
+    {% endif %}
+    
+    <div class="p-2 g-col-6">
+        <a class="btn btn-danger" href="{{ path('app_logout') }}" role="button">Logout</a>
+    </div>
+
+{% endblock %}
